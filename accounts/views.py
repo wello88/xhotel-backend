@@ -25,8 +25,12 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from django.core.exceptions import ObjectDoesNotExist
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from .models import CustomUser
+
+
+
 
 @api_view(['POST'])
 def user_login(request):
@@ -40,13 +44,23 @@ def user_login(request):
                 user = CustomUser.objects.get(email=username)
             except ObjectDoesNotExist:
                 pass
-
         if not user:
             user = authenticate(username=username, password=password)
+            if user:
+                refresh = RefreshToken.for_user(user)
+                access_token = refresh.access_token
+            # Debug prints/logs
+                print(f"Generated Refresh Token: {str(refresh)}")
+            print(f"Generated Access Token: {str(refresh.access_token)}")
 
-        if user:
+            access_token = refresh.access_token
             token, _ = Token.objects.get_or_create(user=user)
-            return Response({'token': token.key}, status=status.HTTP_200_OK)
+            return Response({
+                'refresh': str(refresh),
+                'access': str(access_token),
+                'token': token.key,
+            }, status=status.HTTP_200_OK)
+
 
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
     

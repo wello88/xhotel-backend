@@ -15,3 +15,24 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.username
+    
+
+
+    # models.py for admin panel
+
+from django.db import models
+
+class Hotel(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+class Room(models.Model):
+    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
+    room_number = models.CharField(max_length=10)
+    description = models.TextField()
+
+    def __str__(self):
+        return f"{self.hotel.name} - Room {self.room_number}"
