@@ -3,7 +3,7 @@
 from django.db import models
 
 class HotelBooking(models.Model):
-    room_id = models.AutoField(primary_key=True)    
+    room_id = models.AutoField(primary_key=True,unique=True)    
     guest_name = models.CharField(max_length=255)
     check_in_date = models.DateField()
     check_out_date = models.DateField()

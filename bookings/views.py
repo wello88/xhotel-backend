@@ -56,8 +56,6 @@ class HotelBookingListCreateView(generics.ListCreateAPIView):
             return Response({'error': 'Insufficient permissions.'}, status=status.HTTP_403_FORBIDDEN)
 
         # # Continue with the booking creation logic
-        # ...
-
         # Customize create behavior if needed
         return super().create(request, *args, **kwargs)
 

@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'accounts',
     'media',
+    'event',
+    'contactus',
     'django_rest_passwordreset',
      'bookings' ,   
      'review',
