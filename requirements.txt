@@ -24,3 +24,5 @@ sqlparse==0.4.2
 toml==0.10.2
 urllib3==1.26.5
 whitenoise==5.2.0
+djangorestframework==3.14.0
+djangorestframework-simplejwt==5.3.1
