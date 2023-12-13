@@ -44,9 +44,11 @@ INSTALLED_APPS = [
     'media',
     'event',
     'contactus',
+    'bookings' ,   
+    'review',   
+    'payment',
     'django_rest_passwordreset',
-     'bookings' ,   
-     'review',
+
 ]
 
 MIDDLEWARE = [

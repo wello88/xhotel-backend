@@ -11,5 +11,6 @@ urlpatterns = [
     path('api/', include('review.urls')), 
     path('api/', include('contactus.urls')),
     path('api/', include('event.urls')),
+    path('', include('payment.urls'))
 
 ]
