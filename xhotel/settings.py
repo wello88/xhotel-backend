@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'payment',
     'django_rest_passwordreset',
     'accounts.apps.AccountsConfig',
+    'corsheaders',
+    
 
 
 ]
@@ -62,12 +64,13 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 
 ]
 
 ROOT_URLCONF = 'xhotel.urls'
 
-
+CORS_ALLOWED_ORIGINS = ['*']
 CSRF_COOKIE_SECURE = False
 CSRF_COOKIE_SAMESITE = 'Lax'
 
