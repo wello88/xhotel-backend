@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from datetime import timedelta
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -70,7 +71,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'xhotel.urls'
 
-CORS_ALLOWED_ORIGINS = ['*']
+# CORS_ALLOWED_ORIGINS = ['https://omerbag-9.github.io/x-hotel-front-end/']
 CSRF_COOKIE_SECURE = False
 CSRF_COOKIE_SAMESITE = 'Lax'
 
@@ -158,6 +159,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS=[
+
+    os.path.join(BASE_DIR,'static'),
+]
+STATIC_ROOT = os.path.join(BASE_DIR,'static_root')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
