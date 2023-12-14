@@ -3,7 +3,7 @@ const csrfToken = '4kBdldPUYrRLf87CUNCBt4vkZdQEM3Wpwjbxj9DjmwpEuLq7zhdPjCBvuJrek
 
 // Example: Make a request with the CSRF token
 fetch('/api/some-endpoint/', {
-  method: 'Post',  // Or any other HTTP method
+  method: 'GET',  // Or any other HTTP method
   headers: {
     'Content-Type': 'application/json',
     'X-CSRFToken': csrfToken,
