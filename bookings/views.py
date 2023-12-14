@@ -1,22 +1,63 @@
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import HotelBookingSerializer
 from rest_framework import generics
 from rest_framework.decorators import authentication_classes, permission_classes
 from rest_framework.permissions import IsAuthenticated
-from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.response import Response
 from rest_framework import status
-from accounts.models import CustomUser 
-from .models import HotelBooking
+from .models import HotelBooking,Room
 from .serializers import HotelBookingSerializer
+from rest_framework.authentication import TokenAuthentication
 
 
-
-
-@authentication_classes([JWTAuthentication])
+@authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 class HotelBookingListCreateView(generics.ListCreateAPIView):
     queryset = HotelBooking.objects.all()
     serializer_class = HotelBookingSerializer
-    permission_classes = [IsAuthenticated]  # Use TokenHasReadWritePermission
+    permission_classes = [IsAuthenticated]  
+
+#     def create(self, request, *args, **kwargs):
+#         # Validate the token
+#         if not request.auth:
+#             return Response({'error': 'Authentication credentials not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
+
+#         # Extract the user from the token
+#         user = request.user
+
+#         # Check if the user has write access
+#         if not user.has_perm('booking.add_hotelbooking'):
+#             return Response({'error': 'Insufficient permissions.'}, status=status.HTTP_403_FORBIDDEN)
+
+#         # Extract room_id, check_in_date, and check_out_date from the request data
+#           # Customize create behavior to associate the booking with the correct room
+#         # room_id = request.data.get('room')
+#         # room = Room.objects.get(room_id=room_id)
+#         # request.data['room'] = room.id
+#         check_in_date = request.data.get('check_in_date')
+#         check_out_date = request.data.get('check_out_date')
+
+#         # Check if the room exists
+#         # try:
+#         #     room = Room.objects.get(room_id=room_id)
+#         # except Room.DoesNotExist:
+#         #     return Response({'error': 'Room does not exist.'}, status=status.HTTP_400_BAD_REQUEST)
+
+#         # You can add more validation checks here if needed
+
+#         # Create a hotel booking
+#         booking_data = {
+#             # 'room_id': room_id,
+#             'check_in_date': check_in_date,
+#             'check_out_date': check_out_date,
+#         }
+#         serializer = HotelBookingSerializer(data=booking_data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         else:
+#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def list(self, request, *args, **kwargs):
         # Get the default list response
@@ -45,18 +86,13 @@ class HotelBookingListCreateView(generics.ListCreateAPIView):
             return Response({'error': 'Authentication credentials not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
 
         # Extract the user from the token
-        user_id = request.auth.get('user_id')
-        try:
-            user = CustomUser.objects.get(id=user_id)
-        except CustomUser.DoesNotExist:
-            return Response({'error': 'User not found.'}, status=status.HTTP_404_NOT_FOUND)
+        user = request.user  # Access user directly from the request
 
-        # Check if user has write access
+        # Check if the user has write access
         if not user.has_perm('booking.add_hotelbooking'):
             return Response({'error': 'Insufficient permissions.'}, status=status.HTTP_403_FORBIDDEN)
-
-        # # Continue with the booking creation logic
         # Customize create behavior if needed
         return super().create(request, *args, **kwargs)
+
 
 

@@ -40,14 +40,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'accounts',
+    # 'accounts',
     'media',
     'event',
     'contactus',
-    'bookings' ,   
+    'bookings',   
     'review',   
     'payment',
     'django_rest_passwordreset',
+    'accounts.apps.AccountsConfig',
+
 
 ]
 
@@ -59,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'xhotel.urls'
@@ -66,7 +69,7 @@ ROOT_URLCONF = 'xhotel.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR, 'templates/',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,14 +88,28 @@ WSGI_APPLICATION = 'xhotel.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "x2",
+#         "USER": "postgres",
+#         "PASSWORD":"147147147",
+#         "HOST": "localhost",
+#         "PORT": "5432",
+#     }
+# }
+
+
+
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "x2",
-        "USER": "postgres",
-        "PASSWORD":"147147147",
-        "HOST": "localhost",
-        "PORT": "5432",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'x1',
+        'USER': 'avnadmin',
+        'PASSWORD': 'AVNS_MQamWg-xes7RimMjQ5n',
+        'HOST': 'pg-f7748d4-wello-a231.a.aivencloud.com',
+        'PORT': '14623',
     }
 }
 
@@ -166,11 +183,13 @@ SIMLPE_JWT = {
 
 # mydrfproject/settings.py
 
-# Email Backend Configuration
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # Replace with your preferred backend
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'   # Replace with your preferred backend
 
 EMAIL_PORT = 587  # Replace with your email port
 EMAIL_USE_TLS = True  # Set to False if your email server doesn't use TLS
-EMAIL_HOST = 'abdow8896@gmail.com'  # Replace with your email host for gmail -> 'smtp.gmail.com'
+EMAIL_HOST = 'smtp.gmail.com'  # Replace with your email host for gmail -> 'smtp.gmail.com'
 EMAIL_HOST_USER = 'xhotel90@gmail.com'  # Replace with your email username
-EMAIL_HOST_PASSWORD = 'mnvv nqnm nael knwz'  # Replace with your email password
+EMAIL_HOST_PASSWORD = 'mnvvnqnmnaelknwz'  # Replace with your email password
+
+
+
