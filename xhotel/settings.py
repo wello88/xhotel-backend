@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'payment',
     'django_rest_passwordreset',
     'accounts.apps.AccountsConfig',
-    'corsheaders',
+    # 'corsheaders',
 ]
 
 MIDDLEWARE = [
