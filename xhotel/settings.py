@@ -88,10 +88,10 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
 
 
-CORS_ALLOWED_ORIGINS = [
-    'http://127.0.0.1:3000',
-    'https://omerbag-9.github.io',
-]
+# CORS_ALLOWED_ORIGINS = [
+#     'http://127.0.0.1:3000',
+#     'https://omerbag-9.github.io',
+# ]
 
 CSRF_COOKIE_SECURE = False
 CSRF_COOKIE_SAMESITE = 'Lax'
