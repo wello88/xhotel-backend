@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    # 'accounts',
     'media',
     'event',
     'contactus',
@@ -85,13 +84,18 @@ ROOT_URLCONF = 'xhotel.urls'
 # SECURE_HSTS_SECONDS = 31536000  # One year
 # SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
-
-
+DEBUG = True
+ALLOWED_HOSTS = ["*"]
+CORS_ALLOW_HEADERS = ['Access-Control-Allow-Headers',    'Origin',    'X-Requested-With',    'Content-Type',    'Accept',    'Authorization']
+CSRF_TRUSTED_ORIGINS = ['http://', 'https://']
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
-    'http://127.0.0.1:3000',
-    'https://omerbag-9.github.io',
-    'https://omerbag-9.github.io/x-hotel-front-end/',
+    # add the domains that you want to allow
+    # for example:
+    'http://localhost:3000',
+    # ...
 ]
 
 
