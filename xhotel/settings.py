@@ -91,7 +91,10 @@ ROOT_URLCONF = 'xhotel.urls'
 CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:3000',
     'https://omerbag-9.github.io',
+    'https://omerbag-9.github.io/x-hotel-front-end/',
 ]
+
+
 
 CSRF_COOKIE_SECURE = False
 CSRF_COOKIE_SAMESITE = 'Lax'
