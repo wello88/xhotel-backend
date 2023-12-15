@@ -6,7 +6,7 @@ from rest_framework.decorators import api_view
 from .serializers import UserSerializer
 from django.views.decorators.csrf import csrf_exempt
 
-@csrf_exempt
+# @csrf_exempt
 @api_view(['POST'])
 def register_user(request):
     if request.method == 'POST':
