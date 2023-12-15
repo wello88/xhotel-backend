@@ -65,13 +65,16 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    # 'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 
 ]
 
 ROOT_URLCONF = 'xhotel.urls'
 
-# CORS_ALLOWED_ORIGINS = ['https://omerbag-9.github.io/x-hotel-front-end/']
+CORS_ALLOWED_ORIGINS = [
+    'http://127.0.0.1:3000/x-hotel-front-end/register.html?Country=EG',
+    'https://omerbag-9.github.io/x-hotel-front-end/'
+    ]
 CSRF_COOKIE_SECURE = False
 CSRF_COOKIE_SAMESITE = 'Lax'
 
