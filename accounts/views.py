@@ -33,38 +33,71 @@ from .models import CustomUser
 
 
 
-
 @api_view(['POST'])
 def user_login(request):
     if request.method == 'POST':
         username = request.data.get('username')
+        email = request.data.get('email')
         password = request.data.get('password')
 
         user = None
-        if '@' in username:
+
+        if email:
             try:
-                user = CustomUser.objects.get(email=username)
+                user = CustomUser.objects.get(email=email)
             except ObjectDoesNotExist:
                 pass
-        if not user:
+        elif username:
             user = authenticate(username=username, password=password)
-            if user:
-                refresh = RefreshToken.for_user(user)
-                access_token = refresh.access_token
-            # Debug prints/logs
-                print(f"Generated Refresh Token: {str(refresh)}")
+
+        if user and user.check_password(password):
+            refresh = RefreshToken.for_user(user)
+            access_token = refresh.access_token
+
+            print(f"Generated Refresh Token: {str(refresh)}")
             print(f"Generated Access Token: {str(refresh.access_token)}")
 
-            access_token = refresh.access_token
             token, _ = Token.objects.get_or_create(user=user)
             return Response({
                 'refresh': str(refresh),
                 'access': str(access_token),
                 'token': token.key,
             }, status=status.HTTP_200_OK)
+        else:
+            return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
+# @api_view(['POST'])
+# def user_login(request):
+#     if request.method == 'POST':
+#         username = request.data.get('username')
+#         email=request.data.get('email')
+#         password = request.data.get('password')
+
+#         user = None
+#         if '@' in username:
+#             try:
+#                 user = CustomUser.objects.get(email=username)
+#             except ObjectDoesNotExist:
+#                 pass
+#         if not user:
+#             user = authenticate(username=username, password=password)
+#             if user:
+#                 refresh = RefreshToken.for_user(user)
+#                 access_token = refresh.access_token
+#             # Debug prints/logs
+#                 print(f"Generated Refresh Token: {str(refresh)}")
+#             print(f"Generated Access Token: {str(refresh.access_token)}")
+
+#             access_token = refresh.access_token
+#             token, _ = Token.objects.get_or_create(user=user)
+#             return Response({
+#                 'refresh': str(refresh),
+#                 'access': str(access_token),
+#                 'token': token.key,
+#             }, status=status.HTTP_200_OK)
 
 
-        return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+#         return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
     
 
 
