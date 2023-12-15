@@ -95,6 +95,7 @@ CORS_ALLOWED_ORIGINS = [
     # add the domains that you want to allow
     # for example:
     'http://localhost:3000',
+    'https://localhost:3000'
     # ...
 ]
 
