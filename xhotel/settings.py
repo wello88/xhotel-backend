@@ -115,11 +115,11 @@ WSGI_APPLICATION = 'xhotel.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'x1',
+        'NAME': 'defaultdb',
         'USER': 'avnadmin',
-        'PASSWORD': 'AVNS_MQamWg-xes7RimMjQ5n',
-        'HOST': 'pg-f7748d4-wello-a231.a.aivencloud.com',
-        'PORT': '14623',
+        'PASSWORD': 'AVNS_Nye0_kgCiDGw2QzGi8b',
+        'HOST': 'pg-x-abdow88988-c44a.a.aivencloud.com',
+        'PORT': '22471',
     }
 }
 
