@@ -146,3 +146,57 @@ def change_password(request):
             return Response({'error': 'Incorrect old password.'}, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+
+
+
+
+
+
+
+
+#admin
+from .models import Programs
+from django.http import JsonResponse
+
+def get_hopiees(request):
+    # Fetch all Programs from the database
+    hopiees = Programs.objects.all()
+
+    # Serialize the data if needed (convert it to JSON for instance)
+    serialized_hopiees = []
+    for hopiee in hopiees:
+        serialized_hopiees.append({
+            'days': hopiee.days,
+            'nights': hopiee.nights,
+            'massage': hopiee.massage,
+            'safari': hopiee.safari,
+            'camping': hopiee.camping,
+            'seatrip': hopiee.seatrip,
+            'diving': hopiee.diving,
+            'snorkeling': hopiee.snorkeling,
+        })
+
+    # Return the serialized data as a JSON response
+    return JsonResponse({'hopiees': serialized_hopiees})
+
+
+#get data 
+from .models import Programs
+from django.http import JsonResponse
+
+def get_programs_data(request):
+    programs_data = Programs.objects.all().values()  # Retrieve all data from Programs table
+    return JsonResponse(list(programs_data), safe=False)
+
+
+
+
+
+from django.http import JsonResponse
+from .models import CustomUser
+
+def get_all_user_hobbies(request):
+    all_user_hobbies = CustomUser.objects.values_list('hobbies', flat=True)
+    return JsonResponse({"hobbies": list(all_user_hobbies)})
+

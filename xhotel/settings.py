@@ -227,4 +227,8 @@ EMAIL_HOST_USER = 'xhotel90@gmail.com'  # Replace with your email username
 EMAIL_HOST_PASSWORD = 'mnvvnqnmnaelknwz'  # Replace with your email password
 
 
+# settings.py
+
+# Ensure that SECURE_SSL_REDIRECT is set to False in development
+SECURE_SSL_REDIRECT = False
 
