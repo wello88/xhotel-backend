@@ -71,27 +71,27 @@ ROOT_URLCONF = 'xhotel.urls'
 
 
 
-# settings.py
-SESSION_COOKIE_SECURE = True
-# settings.py
-SECURE_SSL_REDIRECT = True
-# settings.py
-# CSRF_COOKIE_SECURE = True
-# settings.py
-SECURE_BROWSER_XSS_FILTER = True
-# settings.py
-SECURE_CONTENT_TYPE_NOSNIFF = True
-# settings.py
-SECURE_HSTS_SECONDS = 31536000  # One year
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# # settings.py
+# SESSION_COOKIE_SECURE = True
+# # settings.py
+# SECURE_SSL_REDIRECT = True
+# # settings.py
+# # CSRF_COOKIE_SECURE = True
+# # settings.py
+# SECURE_BROWSER_XSS_FILTER = True
+# # settings.py
+# SECURE_CONTENT_TYPE_NOSNIFF = True
+# # settings.py
+# SECURE_HSTS_SECONDS = 31536000  # One year
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
 
 
 
-# CORS_ALLOWED_ORIGINS = [
-#     'http://127.0.0.1:3000',
-#     'https://omerbag-9.github.io',
-# ]
+CORS_ALLOWED_ORIGINS = [
+    'http://127.0.0.1:3000',
+    'https://omerbag-9.github.io',
+]
 
 CSRF_COOKIE_SECURE = False
 CSRF_COOKIE_SAMESITE = 'Lax'
