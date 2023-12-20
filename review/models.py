@@ -4,6 +4,6 @@ from django.db import models
 from django.db import models
 
 class Review(models.Model):
-    user = models.CharField(max_length=100)
+    name = models.CharField(max_length=20)
     # hotel = models.CharField(max_length=100)
     comment = models.TextField()

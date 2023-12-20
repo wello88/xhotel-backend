@@ -41,6 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_simplejwt',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     'media',
     'event',
     'contactus',
@@ -50,6 +55,8 @@ INSTALLED_APPS = [
     'django_rest_passwordreset',
     'accounts.apps.AccountsConfig',
     'corsheaders',
+    'profiel',
+
 ]
 
 MIDDLEWARE = [
@@ -62,6 +69,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
+
 ]
 
 ROOT_URLCONF = 'xhotel.urls'
@@ -136,30 +145,30 @@ WSGI_APPLICATION = 'xhotel.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "x2",
-#         "USER": "postgres",
-#         "PASSWORD":"147147147",
-#         "HOST": "localhost",
-#         "PORT": "5432",
-#     }
-# }
-
-
-
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'defaultdb',
-        'USER': 'avnadmin',
-        'PASSWORD': 'AVNS_Nye0_kgCiDGw2QzGi8b',
-        'HOST': 'pg-x-abdow88988-c44a.a.aivencloud.com',
-        'PORT': '22471',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "x",
+        "USER": "postgres",
+        "PASSWORD":"147147147",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
+
+
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'defaultdb',
+#         'USER': 'avnadmin',
+#         'PASSWORD': 'AVNS_Nye0_kgCiDGw2QzGi8b',
+#         'HOST': 'pg-x-abdow88988-c44a.a.aivencloud.com',
+#         'PORT': '22471',
+#     }
+# }
 
 
 # Password validation
@@ -212,6 +221,9 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 
 
 REST_FRAMEWORK = {
+        'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
     ],
@@ -221,22 +233,14 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
-        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+
 
     ],
-    
-    # 'DEFAULT_PERMISSION_CLASSES': [
-    #     'rest_framework.permissions.IsAuthenticated',
-    # ],
-    # 'DEFAULT_RENDERER_CLASSES': [
-    #     'rest_framework.renderers.JSONRenderer',
-    # ],
-    
-    # Other settings...
 }
 
-SIMLPE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=60),  # Adjust as needed
+
+SIMPLe_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=60),
 }
 
 # mydrfproject/settings.py
@@ -250,7 +254,19 @@ EMAIL_HOST_USER = 'xhotel90@gmail.com'  # Replace with your email username
 EMAIL_HOST_PASSWORD = 'mnvvnqnmnaelknwz'  # Replace with your email password
 
 
+
 # settings.py
+
+# Allauth settings
+ACCOUNT_EMAIL_VERIFICATION = 'MANDATORY' 
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/'
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/'
+
+# Email confirmation templates
+ACCOUNT_EMAIL_CONFIRMATION_SIGNUP_MESSAGE = 'accounts/email/confirmation_signup_message.txt'
+ACCOUNT_EMAIL_CONFIRMATION_URL = 'account-confirm-email'
+ACCOUNT_EMAIL_CONFIRMATION_HMAC = True
 
 # Ensure that SECURE_SSL_REDIRECT is set to False in development
 SECURE_SSL_REDIRECT = False

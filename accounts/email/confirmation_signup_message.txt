@@ -1,0 +1,10 @@
+Subject: Confirm your email address
+
+Hello,
+
+Thank you for signing up. Please click on the link below to confirm your email address:
+
+{{ accounts/confirm-email/<str:key>/ }}
+
+Regards,
+Your Site Team

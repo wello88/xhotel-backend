@@ -46,3 +46,34 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
     )
     msg.attach_alternative(email_html_message, "text/html")
     msg.send()
+
+
+
+
+
+
+
+
+
+
+
+    # accounts/signals.py
+from django.dispatch import receiver
+from allauth.account.signals import email_confirmed
+from django.contrib.auth import get_user_model
+
+@receiver(email_confirmed)
+def email_confirmed_(request, email_address, **kwargs):
+    # Get the user associated with the email address
+    user = get_user_model().objects.get(email=email_address.email)
+    
+    # Update user data as needed
+    # For example, you can set user.is_active = True
+    user.is_active = True
+    user.save()
+
+# signals.py
+from django.dispatch import Signal
+
+email_confirmed = Signal()
+

@@ -13,7 +13,7 @@ class ReviewList(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         # Set the user of the review to the currently logged-in user (if applicable)
-        serializer.save(user=self.request.user)
+        serializer.save()
 
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
@@ -21,6 +21,28 @@ class ReviewList(generics.ListCreateAPIView):
         data = {'reviews': serializer.data}
         return Response(data, status=status.HTTP_200_OK) 
     
+
+
+
+
+
+
+
+
+# views.py_count
+
+from django.http import JsonResponse
+from .models import Review  # Import the Review model
+
+def count_users_with_reviews(request):
+    review_count = Review.objects.count()
+    review_count_array = [{"number_of_users_with_reviews": [review_count]}]
+    return JsonResponse(review_count_array, safe=False)
+
+
+
+
+
 
     
 
