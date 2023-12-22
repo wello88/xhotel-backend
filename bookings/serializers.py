@@ -151,3 +151,25 @@ class HotelBookingSerializer(serializers.ModelSerializer):
     class Meta:
         model = HotelBooking
         fields = '__all__'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        # serializers.py
+from rest_framework import serializers
+from .models import Room
+
+class RoomSearchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Room
+        fields = ['room_id', 'room_name', 'room_price', 'room_type']

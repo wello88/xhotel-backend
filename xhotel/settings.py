@@ -56,6 +56,9 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'corsheaders',
     'profiel',
+    'dj_rest_auth',
+
+    # 'custom_auth',
 
 ]
 
@@ -69,6 +72,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    
     'allauth.account.middleware.AccountMiddleware',
 
 ]
@@ -158,6 +162,15 @@ DATABASES = {
 
 
 
+# Authentication backends
+AUTHENTICATION_BACKENDS = [
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+# Use the following configuration for the authentication classes
+AUTHENTICATION_CLASSES = [
+    'dj_rest_auth.authentication.AllAuthJWTAuthentication',
+]
 
 # DATABASES = {
 #     'default': {
@@ -240,7 +253,7 @@ REST_FRAMEWORK = {
 
 
 SIMPLe_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=60),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=5),
 }
 
 # mydrfproject/settings.py
@@ -262,6 +275,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'MANDATORY'
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3
 ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/'
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/'
+# ACCOUNT_EMAIL_CONFIRMATION_MODEL = 'custom_auth.CustomEmailConfirmation'
 
 # Email confirmation templates
 ACCOUNT_EMAIL_CONFIRMATION_SIGNUP_MESSAGE = 'accounts/email/confirmation_signup_message.txt'

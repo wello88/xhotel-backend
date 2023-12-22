@@ -26,6 +26,7 @@ from .views import get_email_by_user_id
 
 urlpatterns = [
     path('register/', RegistrationAPIView.as_view(), name='register'),
+    path('api/login/', LoginView.as_view(), name='rest_login'),
     path('login/',CustomTokenObtainPairView.as_view(), name='login'),
     path('logout/', LogoutAPIView.as_view(), name='logout'),
     path('change_password/', change_password, name='change_password'),

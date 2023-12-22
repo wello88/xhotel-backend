@@ -1,7 +1,8 @@
 # profile/urls.py
 from django.urls import path
-from .views import ProfileDetailView
+from .views import UserProfileAPIView,UserProfileView
 
 urlpatterns = [
-    path('profile/', ProfileDetailView.as_view(), name='profile-detail'),
+    path('profile/', UserProfileAPIView.as_view(), name='profile-detail'),
+    path('pprofile/',UserProfileView.as_view(),name='bookingdata')
 ]
