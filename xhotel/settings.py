@@ -57,9 +57,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'profiel',
     'dj_rest_auth',
-
-    # 'custom_auth',
-
 ]
 
 MIDDLEWARE = [

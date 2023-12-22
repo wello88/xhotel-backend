@@ -108,6 +108,7 @@ class Hotel(models.Model):
 
 class Room(models.Model):
     hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
+    description=models.TextField()
     room_id = models.IntegerField(primary_key=True)
     room_name=models.CharField(max_length=100)
     room_price=models.PositiveIntegerField()
