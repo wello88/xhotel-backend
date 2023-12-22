@@ -18,7 +18,9 @@ decorator==5.1.1
 defusedxml==0.5.0
 distlib==0.3.7
 dj-rest-auth==5.0.2
-Django==5.0
+# Django==5.0
+Django==3.2.13
+
 django-allauth==0.59.0
 django-cors-headers==4.3.1
 django-filter==2.0.0
@@ -65,7 +67,9 @@ PyJWT==1.7.1
 python-dateutil==2.8.2
 python3-openid==3.1.0
 pytz==2023.3.post1
-pywin32==306
+# pywin32==306
+pywin32
+
 PyYAML==3.13
 pyzmq==25.1.1
 regex==2023.10.3
