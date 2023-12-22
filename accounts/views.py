@@ -1023,7 +1023,6 @@ from allauth.account.utils import send_email_confirmation
 
 from .serializers import CustomUserSerializer
 
-# views.py
 
 from django.contrib.auth import get_user_model
 from rest_framework import generics, status
@@ -1289,16 +1288,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
             # token = Token.objects.create(user)
         return JsonResponse({'access_token': access_token, 'detail': 'Login successful.'}, status=200)
 
-        #     # Add custom response data for successful login
-        #     # Add custom response data for successful login
-        #     # response.data['access_token'] = access_token
-        #     # response.data['refresh_token'] = str(refresh)
-        #     # response.data['token'] = access_token
-        #     response.data['token_key'] = refresh.access_token.payload['jti']
-        #     response.data['detail'] = 'Login successful.'
 
-
-        # return response
 
 
     def get_refresh_token(self, user):
@@ -1310,7 +1300,16 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 
 
 
+        #     # Add custom response data for successful login
+        #     # Add custom response data for successful login
+        #     # response.data['access_token'] = access_token
+        #     # response.data['refresh_token'] = str(refresh)
+        #     # response.data['token'] = access_token
+        #     response.data['token_key'] = refresh.access_token.payload['jti']
+        #     response.data['detail'] = 'Login successful.'
 
+
+        # return response
 
 
 # # views.py
