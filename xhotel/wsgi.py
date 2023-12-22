@@ -33,3 +33,13 @@ application = get_wsgi_application()
 #         proxy_pass http://127.0.0.1:8000;  # Assuming Gunicorn is running on localhost:8000
 #     }
 # }
+
+
+
+# wsgi.py
+
+from whitenoise import WhiteNoise
+from django.core.wsgi import get_wsgi_application
+
+application = get_wsgi_application()
+application = WhiteNoise(application)

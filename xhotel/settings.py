@@ -69,7 +69,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'allauth.account.middleware.AccountMiddleware',
 
 ]
@@ -215,10 +216,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-# settings.py
-STATIC_URL = '/static_root/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+# # settings.py
+# STATIC_URL = '/static_root/'
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
+
+
+STATIC_URL = '/static/'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
 
 
 # Default primary key field type

@@ -19,7 +19,7 @@ defusedxml==0.5.0
 distlib==0.3.7
 dj-rest-auth==5.0.2
 # Django==5.0
-django
+django==3.2.1
 django-allauth==0.59.0
 django-cors-headers==4.3.1
 django-filter==2.0.0
@@ -57,7 +57,7 @@ prompt-toolkit==3.0.39
 psutil==5.9.6
 psycopg==3.1.14
 psycopg2==2.9.9
-psycopg2-binary==2.9.9
+# psycopg2-binary==2.9.9
 pure-eval==0.2.2
 pycodestyle==2.10.0
 pycparser==2.21
@@ -86,8 +86,9 @@ python3-openid==3.1.0
 # typing_extensions==4.9.0
 # tzdata==2023.3
 # urllib3==2.1.0
-virtualenv==20.24.3
+# virtualenv==20.24.3
 # wcwidth==0.2.8
 # xgboost==2.0.2
 # zope.event==5.0
 # zope.interface==6.1
+whitenoise==6.5.0
