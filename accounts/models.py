@@ -289,8 +289,27 @@ class CustomUser(AbstractUser):
 
 
 
-#admin
-from django.db import models
+# #admin
+# from django.db import models
+
+# class Programs(models.Model):
+#     days = models.IntegerField(default=0)
+#     nights = models.IntegerField(default=0)  # Added field for nights
+#     massage = models.IntegerField(default=0)
+#     safari = models.IntegerField(default=0)
+#     camping = models.IntegerField(default=0)
+#     seatrip = models.IntegerField(default=0)
+#     diving = models.IntegerField(default=0)
+#     snorkeling = models.IntegerField(default=0)
+
+#     def save(self, args, **kwargs):
+#         if not self.pk:  # This checks if the object is being created, not updated
+#             self.nights = self.days + 1
+#         super(Programs, self).save(args, **kwargs)
+    
+
+
+    from django.db import models
 
 class Programs(models.Model):
     days = models.IntegerField(default=0)
@@ -306,3 +325,6 @@ class Programs(models.Model):
         if not self.pk:  # This checks if the object is being created, not updated
             self.nights = self.days + 1
         super(Programs, self).save(args, **kwargs)
+
+    class Meta:
+        unique_together = ('id',)

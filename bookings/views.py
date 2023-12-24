@@ -1017,11 +1017,11 @@ class RoomSearchView(generics.ListAPIView):
         # Filter rooms based on the provided criteria
         queryset = Room.objects.all()
 
-        if room_type:
-            queryset = queryset.filter(room_type=room_type)
+        # if room_type:
+            # queryset = queryset.filter(room_type=room_type)
 
-        # if room_name:
-        #     queryset = queryset.filter(room_name=room_name)
+        if room_name:
+            queryset = queryset.filter(room_name=room_name)
 
         # if room_id:
         #     queryset = queryset.filter(room_pricelte=room_id)
