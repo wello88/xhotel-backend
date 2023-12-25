@@ -1,4 +1,4 @@
-asgiref==3.7.4
+asgiref==3.7.2
 cffi==1.14.6
 cx-Oracle==8.2.1
 executing==2.5.0
