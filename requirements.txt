@@ -55,7 +55,8 @@ Pillow==10.1.0
 platformdirs==3.10.0
 prompt-toolkit==3.0.39
 psutil==5.9.6
-psycopg2==2.9.9
+
+psycopg2-binary==2.9.9
 pure-eval==0.2.2
 pycodestyle==2.10.0
 pycparser==2.21
