@@ -18,6 +18,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'xhotel.settings')
 
 
 application = get_wsgi_application()
+app = application
 
 # server {
 #     listen 80;

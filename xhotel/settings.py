@@ -11,23 +11,25 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from datetime import timedelta
-from pathlib import Path
 import os
+from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# ...
+
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-97=wl=xs*0^zo8=p6=kpnq&)d$(r+1_)z9%d4k(%!##*jn8*a$'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'your_default_secret_key')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*']  # For testing purposes; update with your domain in production
 
 
 # Application definition
@@ -72,7 +74,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'allauth.account.middleware.AccountMiddleware',
 
 ]
@@ -97,7 +99,7 @@ ROOT_URLCONF = 'xhotel.urls'
 # SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
 DEBUG = True
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['127.0.0.1','.vercel.app','.now.sh','localhost']
 CORS_ALLOW_HEADERS = ['Access-Control-Allow-Headers',    'Origin',    'X-Requested-With',    'Content-Type',    'Accept',    'Authorization']
 CSRF_TRUSTED_ORIGINS = ['http://', 'https://']
 CORS_ALLOW_ALL_ORIGINS = True
@@ -145,22 +147,33 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'xhotel.wsgi.application'
 
+# Add the following ASGI setting
+ASGI_APPLICATION = 'xhotel.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "x",
+#         "USER": "postgres",
+#         "PASSWORD":"147147147",
+#         "HOST": "localhost",
+#         "PORT": "5432",
+#     }
+# }
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "x",
-        "USER": "postgres",
-        "PASSWORD":"147147147",
-        "HOST": "localhost",
-        "PORT": "5432",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'ab4CC36-b1D31AgcD4d*E3E6-E*A2gGe',
+        'HOST': 'monorail.proxy.rlwy.net',
+        'PORT': '50820',
     }
 }
-
-
 
 # Authentication backends
 AUTHENTICATION_BACKENDS = [
@@ -221,7 +234,14 @@ USE_TZ = True
 # settings.py
 STATIC_URL = '/static_root/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_root','staticfiles_build')
+
+
+
+# STATIC_URL = '/static/'
+
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 
 # Default primary key field type
