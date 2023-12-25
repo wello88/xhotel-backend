@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'your_default_secret_key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ['*']  # For testing purposes; update with your domain in production
+ALLOWED_HOSTS = ['*']  # For testing purposes; update with your domain in production
 
 
 # Application definition
@@ -99,7 +99,7 @@ ROOT_URLCONF = 'xhotel.urls'
 # SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
 DEBUG = True
-ALLOWED_HOSTS = ['127.0.0.1','.vercel.app','.now.sh','localhost']
+# ALLOWED_HOSTS = ['127.0.0.1','.vercel.app','.now.sh','localhost']
 CORS_ALLOW_HEADERS = ['Access-Control-Allow-Headers',    'Origin',    'X-Requested-With',    'Content-Type',    'Accept',    'Authorization']
 CSRF_TRUSTED_ORIGINS = ['http://', 'https://']
 CORS_ALLOW_ALL_ORIGINS = True
