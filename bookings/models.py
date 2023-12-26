@@ -196,8 +196,8 @@ class Room(models.Model):
 
 
 
-from accounts.models import CustomUser
 from django.db import models
+from .models import Room
 
 class HotelBooking(models.Model):
     name = models.CharField(max_length=100, null=True)
@@ -206,11 +206,12 @@ class HotelBooking(models.Model):
     check_out_date = models.DateField()
     adults = models.PositiveIntegerField()
     kids = models.PositiveIntegerField()
+    
+    # Add the 'total_price' field to the model
+    total_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
 
     def __str__(self):
         return f"Booking ({self.room.id})"
-
-
 
 
 
