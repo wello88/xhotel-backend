@@ -18,5 +18,5 @@ from .models import Event  # Import the Event model
 
 def count_users_attending_event(request):
     event_count = Event.objects.count()
-    event_count_array = [{"number_of_users_attending_event": [{"attending_data": event_count}]}]
+    event_count_array = {"number_of_users_attending_event": [{"attending_data": event_count}]}
     return JsonResponse(event_count_array, safe=False)
