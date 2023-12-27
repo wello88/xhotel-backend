@@ -85,9 +85,88 @@ from rest_framework.permissions import IsAuthenticated
 from .models import HotelBooking, Room
 from .serializers import HotelBookingSerializer
 
+# class HotelBookingListCreateView(generics.ListCreateAPIView):
+#     authentication_classes = [JWTAuthentication]
+#     permission_classes = [IsAuthenticated]
+#     queryset = HotelBooking.objects.all()
+#     serializer_class = HotelBookingSerializer
+
+#     def list(self, request, *args, **kwargs):
+#         response = super().list(request, *args, **kwargs)
+#         data = response.data
+
+#         custom_data = [
+#             {**booking_data, 'date_array': [booking_data.get('check_in_date'), booking_data.get('check_out_date')]}
+#             for booking_data in data
+#         ]
+
+#         response.data = custom_data
+#         return response
+
+#     def create(self, request, *args, **kwargs):
+#         print("777777777777777")
+#         if not request.auth:
+#             return Response({'error': 'Authentication credentials not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
+
+#         user = request.user
+#         print(user.id)
+#         if not user.has_perm('booking.add_hotelbooking'): 
+#             return Response({'error': 'Insufficient permissions.'}, status=status.HTTP_403_FORBIDDEN)
+
+#         # Extract relevant data from the request
+#         room_id = request.data.get('room')
+#         check_in_date = request.data.get('check_in_date')
+#         check_out_date = request.data.get('check_out_date')
+#         numberOfAdults = request.data.get('adults', 0)
+#         numberOfKids = request.data.get('kids', 0)
+
+#         # Retrieve the room details
+#         room = Room.objects.get(pk=room_id)
+
+#         # Check if there are any overlapping bookings for the specified room and time period
+#         existing_bookings = HotelBooking.objects.filter(
+#             room=room_id,
+#             check_out_date__gt=check_in_date,
+#             check_in_date__lt=check_out_date
+#         )
+
+#         if existing_bookings.exists():
+#             return Response({'error': 'The room is already booked for the specified time period.'}, status=status.HTTP_400_BAD_REQUEST)
+
+#         # Calculate the price for the room
+#         numberOfDays = (check_out_date - check_in_date).days
+#         room_price = room.room_price
+#         total_price = room_price * numberOfDays * (1 + 0.2 * numberOfAdults + 0.1 * numberOfKids)
+
+#         # Add the calculated price to the request data
+#         request.data['total_price'] = total_price
+
+#         return super().create(request, *args, **kwargs)
+
+
+
+
+
+
+from datetime import datetime
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework import generics
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from .models import HotelBooking, Room
+from .serializers import HotelBookingSerializer
+
+from rest_framework import generics, permissions, status
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.response import Response
+from .models import HotelBooking
+from .serializers import HotelBookingSerializer
+from bookings.models import Room
+from datetime import timedelta
+
 class HotelBookingListCreateView(generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
     queryset = HotelBooking.objects.all()
     serializer_class = HotelBookingSerializer
 
@@ -104,18 +183,18 @@ class HotelBookingListCreateView(generics.ListCreateAPIView):
         return response
 
     def create(self, request, *args, **kwargs):
+        print("777777777777777")
         if not request.auth:
             return Response({'error': 'Authentication credentials not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
 
         user = request.user
-
         if not user.has_perm('booking.add_hotelbooking'): 
             return Response({'error': 'Insufficient permissions.'}, status=status.HTTP_403_FORBIDDEN)
 
-        # Extract relevant data from the request
         room_id = request.data.get('room')
-        check_in_date = request.data.get('check_in_date')
-        check_out_date = request.data.get('check_out_date')
+     # Convert date strings to datetime.date objects
+        check_in_date = datetime.strptime(request.data.get('check_in_date'), '%Y-%m-%d').date()
+        check_out_date = datetime.strptime(request.data.get('check_out_date'), '%Y-%m-%d').date()
         numberOfAdults = request.data.get('adults', 0)
         numberOfKids = request.data.get('kids', 0)
 
@@ -132,22 +211,19 @@ class HotelBookingListCreateView(generics.ListCreateAPIView):
         if existing_bookings.exists():
             return Response({'error': 'The room is already booked for the specified time period.'}, status=status.HTTP_400_BAD_REQUEST)
 
+        # Convert relevant variables to numeric types
+        room_price = float(room.room_price)
+        numberOfDays = int((check_out_date - check_in_date).days)
+        numberOfAdults = int(numberOfAdults)
+        numberOfKids = int(numberOfKids)
+
         # Calculate the price for the room
-        numberOfDays = (check_out_date - check_in_date).days
-        room_price = room.room_price
         total_price = room_price * numberOfDays * (1 + 0.2 * numberOfAdults + 0.1 * numberOfKids)
 
         # Add the calculated price to the request data
         request.data['total_price'] = total_price
 
         return super().create(request, *args, **kwargs)
-
-
-
-
-
-
-
 
 
 
@@ -234,65 +310,67 @@ from django.urls import path
 
 
 
-import math
-from django.shortcuts import render
-from django.http import JsonResponse
-from rest_framework.decorators import authentication_classes, permission_classes
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.authentication import TokenAuthentication
-from rest_framework import generics, status
-from rest_framework.response import Response
-from .models import Hotel, HotelBooking, Room
-from .serializers import HotelBookingSerializer
-from django.shortcuts import render, get_object_or_404
-from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.permissions import IsAuthenticated
-from rest_framework import generics
-from rest_framework.response import Response
-from rest_framework import status
+# import math
+# from django.shortcuts import render
+# from django.http import JsonResponse
+# from rest_framework.decorators import authentication_classes, permission_classes
+# from rest_framework.permissions import IsAuthenticated
+# from rest_framework.authentication import TokenAuthentication
+# from rest_framework import generics, status
+# from rest_framework.response import Response
+# from .models import Hotel, HotelBooking, Room
+# from .serializers import HotelBookingSerializer
+# from django.shortcuts import render, get_object_or_404
+# from rest_framework_simplejwt.authentication import JWTAuthentication
+# from rest_framework.permissions import IsAuthenticated
+# from rest_framework import generics
+# from rest_framework.response import Response
+# from rest_framework import status
 
-class HotelBookingListCreateView(generics.ListCreateAPIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
-    queryset = HotelBooking.objects.all()
-    serializer_class = HotelBookingSerializer
+# class HotelBookingListCreateView(generics.ListCreateAPIView):
+#     authentication_classes = [JWTAuthentication]
+#     permission_classes = [IsAuthenticated]
+#     queryset = HotelBooking.objects.all()
+#     serializer_class = HotelBookingSerializer
 
-    def list(self, request, *args, **kwargs):
-        response = super().list(request, *args, **kwargs)
-        data = response.data
+#     def list(self, request, *args, **kwargs):
+#         response = super().list(request, *args, **kwargs)
+#         data = response.data
 
-        custom_data = [
-            {**booking_data, 'date_array': [booking_data.get('check_in_date'), booking_data.get('check_out_date')]}
-            for booking_data in data
-        ]
+#         custom_data = [
+#             {**booking_data, 'date_array': [booking_data.get('check_in_date'), booking_data.get('check_out_date')]}
+#             for booking_data in data
+#         ]
 
-        response.data = custom_data
-        return response
-    def create(self, request, *args, **kwargs):
-        if not request.auth:
-            return Response({'error': 'Authentication credentials not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
+#         response.data = custom_data
+#         return response
+#     def post(self, request, *args, **kwargs):
+#         print("welcome")
+#         if not request.auth:
+#             return Response({'error': 'Authentication credentials not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
 
-        user = request.user
+#         user = request.user
+#         print(user.id)
+#         if not user.has_perm('booking.add_hotelbooking'):
+#             return Response({'error': 'Insufficient permissions.'}, status=status.HTTP_403_FORBIDDEN)
 
-        if not user.has_perm('booking.add_hotelbooking'):
-            return Response({'error': 'Insufficient permissions.'}, status=status.HTTP_403_FORBIDDEN)
+#         # Extract relevant data from the request
+#         # user=user,
+#         room_id = request.data.get('room')
+#         check_in_date = request.data.get('check_in_date')
+#         check_out_date = request.data.get('check_out_date')
+#         # Check if there are any overlapping bookings for the specified room and time period
+#         existing_bookings = HotelBooking.objects.filter(
+#             # uerId=1,
+#             room=room_id,
+#             check_out_date__gt=check_in_date,
+#             check_in_date__lt=check_out_date
+#         )
 
-        # Extract relevant data from the request
-        room_id = request.data.get('room')
-        check_in_date = request.data.get('check_in_date')
-        check_out_date = request.data.get('check_out_date')
+#         if existing_bookings.exists():
+#             return Response({'error': 'The room is already booked for the specified time period.'}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Check if there are any overlapping bookings for the specified room and time period
-        existing_bookings = HotelBooking.objects.filter(
-            room=room_id,
-            check_out_date__gt=check_in_date,
-            check_in_date__lt=check_out_date
-        )
-
-        if existing_bookings.exists():
-            return Response({'error': 'The room is already booked for the specified time period.'}, status=status.HTTP_400_BAD_REQUEST)
-
-        return super().create(request, *args, **kwargs)
+#         return super().create(request, *args, **kwargs)
     # def create(self, request, *args, **kwargs):
     #     if not request.auth:
     #         return Response({'error': 'Authentication credentials not provided.'}, status=status.HTTP_401_UNAUTHORIZED)

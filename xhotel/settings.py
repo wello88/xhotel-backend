@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'profiel',
     'dj_rest_auth',
+    'admin_user'
 
     # 'custom_auth',
 
@@ -156,7 +157,7 @@ ASGI_APPLICATION = 'xhotel.asgi.application'
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "x",
+#         "NAME": "xcv",
 #         "USER": "postgres",
 #         "PASSWORD":"147147147",
 #         "HOST": "localhost",
@@ -169,9 +170,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'railway',
         'USER': 'postgres',
-        'PASSWORD': 'ab4CC36-b1D31AgcD4d*E3E6-E*A2gGe',
-        'HOST': 'monorail.proxy.rlwy.net',
-        'PORT': '50820',
+        'PASSWORD': 'A1Fd*ddbdcGae4d5egEgDdbGAB*BgcGd',
+        'HOST': 'roundhouse.proxy.rlwy.net',
+        'PORT': '28112',
     }
 }
 
@@ -272,8 +273,25 @@ REST_FRAMEWORK = {
 }
 
 
-SIMPLe_JWT = {
+
+
+SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7), 
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+    'JTI_CLAIM': 'jti',
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+    'SLIDING_TOKEN_LIFETIME': timedelta(days=5),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
 # mydrfproject/settings.py

@@ -1286,8 +1286,11 @@ class CustomTokenObtainPairView(TokenObtainPairView):
             refresh_token = self.get_refresh_token(user)
             access_token = str(refresh_token.access_token)
             # token = Token.objects.create(user)
-        return JsonResponse({'access_token': access_token, 'detail': 'Login successful.'}, status=200)
-
+            return JsonResponse({
+                'access_token': access_token,
+                'refresh_token': str(refresh_token),
+                'detail': 'Login successful.'
+            }, status=response.status_code)
 
 
 
@@ -1499,7 +1502,7 @@ def change_password(request):
 
 
 #admin
-from .models import Programs
+from admin_user.models import Programs
 from django.http import JsonResponse
 
 def get_hopiees(request):
@@ -1525,7 +1528,7 @@ def get_hopiees(request):
 
 
 #get data 
-from .models import Programs
+from admin_user.models import Programs
 from django.http import JsonResponse
 
 def get_programs_data(request):
@@ -1584,3 +1587,20 @@ def get_email_by_user_id(request):
         return JsonResponse({'email': user_email})
     else:
         return JsonResponse({'error': 'User not found'}, status=404)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

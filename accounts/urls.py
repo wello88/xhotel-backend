@@ -23,7 +23,7 @@ from allauth.account.views import ConfirmEmailView
 from allauth.account.views import LoginView
 from .views import get_email_by_user_id
 
-
+from django.urls import path
 urlpatterns = [
     path('register/', RegistrationAPIView.as_view(), name='register'),
     path('api/login/', LoginView.as_view(), name='rest_login'),
@@ -36,5 +36,6 @@ urlpatterns = [
     path('accounts/login/', LoginView.as_view(), name='account_login'),
     path('user-email/', get_email_by_user_id, name='user-email'),
 
-
 ]
+
+
