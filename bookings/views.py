@@ -188,6 +188,8 @@ class HotelBookingListCreateView(generics.ListCreateAPIView):
             return Response({'error': 'Authentication credentials not provided.'}, status=status.HTTP_401_UNAUTHORIZED)
 
         user = request.user
+        print(user.id)
+
         if not user.has_perm('booking.add_hotelbooking'): 
             return Response({'error': 'Insufficient permissions.'}, status=status.HTTP_403_FORBIDDEN)
 
@@ -219,7 +221,7 @@ class HotelBookingListCreateView(generics.ListCreateAPIView):
 
         # Calculate the price for the room
         total_price = room_price * numberOfDays * (1 + 0.2 * numberOfAdults + 0.1 * numberOfKids)
-
+        user.id
         # Add the calculated price to the request data
         request.data['total_price'] = total_price
 

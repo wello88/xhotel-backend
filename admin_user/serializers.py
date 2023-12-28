@@ -72,3 +72,26 @@ class RoomUpdateDeleteSerializer(serializers.ModelSerializer):
         fields = ['description', 'room_name', 'room_price', 'room_type']
 
     # You can add any extra validation or custom logic here if needed
+
+# yourapp/serializers.py
+# serializers.py
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework import serializers
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+        # Add custom claims to the token if needed
+        # token['custom_claim'] = user.custom_claim
+        return token
+
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        # Set the user in the validated_data
+        data['user'] = self.user
+        return data
+
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField(style={'input_type': 'password'})

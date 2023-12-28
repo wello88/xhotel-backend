@@ -59,11 +59,12 @@ INSTALLED_APPS = [
     'corsheaders',
     'profiel',
     'dj_rest_auth',
-    'admin_user'
-
-    # 'custom_auth',
+    'admin_user',
 
 ]
+
+
+CORS_ALLOW_CREDENTIALS = True
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -85,19 +86,6 @@ ROOT_URLCONF = 'xhotel.urls'
 
 
 
-# # settings.py
-# SESSION_COOKIE_SECURE = True
-# # settings.py
-# SECURE_SSL_REDIRECT = True
-# # settings.py
-# # CSRF_COOKIE_SECURE = True
-# # settings.py
-# SECURE_BROWSER_XSS_FILTER = True
-# # settings.py
-# SECURE_CONTENT_TYPE_NOSNIFF = True
-# # settings.py
-# SECURE_HSTS_SECONDS = 31536000  # One year
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
 DEBUG = True
 # ALLOWED_HOSTS = ['127.0.0.1','.vercel.app','.now.sh','localhost']
@@ -252,10 +240,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
-
-
+# Authentication classes
+AUTHENTICATION_CLASSES = (
+    # ...
+    'djoser.backends.jwt.JWTAuthentication',
+    # ... other authentication classes ...
+)
 REST_FRAMEWORK = {
-        'DEFAULT_AUTHENTICATION_CLASSES': (
+    'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_RENDERER_CLASSES': [
@@ -267,12 +259,8 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
-
-
     ],
 }
-
-
 
 
 SIMPLE_JWT = {

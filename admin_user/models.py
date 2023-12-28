@@ -20,3 +20,17 @@ class Programs(models.Model):
         super().save(*args, **kwargs)  # Call the superclass's save method with *args and **kwargs
 
 # ------------------------Hobbies and Programs for the Customer-------------------------------
+        
+
+
+
+
+
+
+
+from django.contrib.auth.models import AbstractUser
+from django.db import models
+
+class CustomUserr(AbstractUser):
+    email = models.EmailField(unique=True)
+    is_email_confirmed = models.BooleanField(default=False)

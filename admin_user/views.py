@@ -1,13 +1,4 @@
 # views.py
-from rest_framework.response import Response
-from rest_framework import status
-from rest_framework import generics, permissions
-from rest_framework_simplejwt.authentication import JWTAuthentication
-from bookings.models import Hotel, Room
-from .serializers import HotelSerializer, RoomSerializer, RoomUpdateDeleteSerializer
-from .permissions import IsSuperuserOrReadOnly
-
-# views.py
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 from rest_framework import status
@@ -103,30 +94,6 @@ def get_program_by_id(request, program_id):
 # --------------------------------------   Retrieve the Programs object by its primary key (id)   -----------------------------------
 
 
-
-
-# from rest_framework import generics, permissions
-# from rest_framework_simplejwt.authentication import JWTAuthentication
-# from .models import Programs
-# from .serializers import ProgramsSerializer
-
-# class IsSuperuserOrReadOnly(permissions.BasePermission):
-#     def has_permission(self, request, view):
-#         # Allow GET, HEAD, and OPTIONS requests for all users.
-#         if request.method in permissions.SAFE_METHODS:
-#             return True
-#         # Restrict other HTTP methods to superusers only.
-#         return request.user and request.user.is_superuser
-
-# class ProgramsListCreateView(generics.ListCreateAPIView):
-#     queryset = Programs.objects.all()
-#     serializer_class = ProgramsSerializer
-#     authentication_classes = [JWTAuthentication]  # Use JWT Authentication
-#     permission_classes = [permissions.IsAuthenticated, IsSuperuserOrReadOnly]
-
-
-
-
 # views.py
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
@@ -163,3 +130,78 @@ class ProgramsDetailView(generics.RetrieveUpdateDestroyAPIView):
     def perform_destroy(self, instance):
         instance.delete()
         return Response({"detail": "Successfully deleted."}, status=status.HTTP_204_NO_CONTENT)
+    
+
+
+# yourapp/views.py
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.authtoken.models import Token
+from django.contrib.auth import authenticate, login
+
+from .serializers import LoginSerializer
+
+# class LoginView(APIView):
+#     def post(self, request, *args, **kwargs):
+#         serializer = LoginSerializer(data=request.data)
+#         if serializer.is_valid():
+#             username = serializer.validated_data['username']
+#             password = serializer.validated_data['password']
+#             user = authenticate(request, username=username, password=password)
+
+#             if user and user.is_superuser:
+#                 login(request, user)
+#                 token, _ = Token.objects.get_or_create(user=user)
+#                 return Response({'token': token.key})
+#             else:
+#                 return Response({'error': 'Invalid credentials or not a superuser.'}, status=status.HTTP_401_UNAUTHORIZED)
+
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+# views.py
+from rest_framework import status
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework.response import Response
+
+from .serializers import LoginSerializer
+# views.py
+from rest_framework import status
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework.response import Response
+
+# views.py
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework.response import Response
+
+from .serializers import LoginSerializer, CustomTokenObtainPairSerializer
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
+
+class LoginView(CustomTokenObtainPairView):
+    def post(self, request, *args, **kwargs):
+        serializer = CustomTokenObtainPairSerializer(data=request.data)
+
+        try:
+            if serializer.is_valid(raise_exception=True):
+                user = serializer.validated_data.get('user')
+                print(f"User: {user}")
+
+                is_superuser = getattr(user, 'is_superuser', None)
+                print(f"Is Superuser: {is_superuser}")
+
+                if is_superuser:
+                    refresh = RefreshToken.for_user(user)
+                    response_data = {
+                        'refresh': str(refresh),
+                        'access': str(refresh.access_token),
+                        'details':str("login success")
+                    }
+                    return Response(response_data)
+                else:
+                    return Response({'error': 'User is not a superuser.'}, status=status.HTTP_401_UNAUTHORIZED)
+        except KeyError as e:
+            return Response({'error': f'Invalid credentials or missing key: {e}'}, status=status.HTTP_401_UNAUTHORIZED)
