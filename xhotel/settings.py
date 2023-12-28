@@ -241,11 +241,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 # Authentication classes
-AUTHENTICATION_CLASSES = (
-    # ...
-    'djoser.backends.jwt.JWTAuthentication',
-    # ... other authentication classes ...
-)
+# AUTHENTICATION_CLASSES = (
+#     # ...
+#     'djoser.backends.jwt.JWTAuthentication',
+#     # ... other authentication classes ...
+# )
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
