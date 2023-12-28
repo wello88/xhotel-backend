@@ -131,7 +131,28 @@ class ProgramsDetailView(generics.RetrieveUpdateDestroyAPIView):
         instance.delete()
         return Response({"detail": "Successfully deleted."}, status=status.HTTP_204_NO_CONTENT)
     
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from .models import Programs
+from .serializers import ProgramsSerializer
 
+@csrf_exempt
+def get_all_programs(request):
+    if request.method == 'GET':
+        try:
+            # Retrieve all Programs objects
+            programs = Programs.objects.all()
+
+            # Serialize the Programs objects
+            serialized_programs = ProgramsSerializer(programs, many=True).data
+
+            return JsonResponse(serialized_programs, status=200, safe=False)
+
+        except Exception as e:
+            return JsonResponse({'message': str(e)}, status=500)
+
+    else:
+        return JsonResponse({'message': 'Method not allowed'}, status=405)
 
 # yourapp/views.py
 from rest_framework import status
