@@ -1,0 +1,72 @@
+{% extends "account/base_site.html" %}
+
+{% load account %}
+
+{% block content %}
+  <style>
+    /* Add your CSS styles here */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #3498db; /* Blue color */
+      color: #fff; /* White text on blue background */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+    }
+
+    .header {
+      text-align: center;
+      padding: 10px;
+    }
+
+    .header h2 {
+      margin: 0;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #fff; /* White background */
+      color: #3498db; /* Blue text */
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    .footer {
+      margin-top: 20px;
+      padding: 10px;
+      text-align: center;
+      font-size: 80%;
+      color: #888;
+    }
+  </style>
+
+  <div class="container">
+    <div class="header">
+      <h2>Your Site Name</h2>
+    </div>
+    <div class="content">
+      <p>Hello,</p>
+      <p>Thank you for signing up. Please click on the link below to confirm your email address:</p>
+      <p>
+        <a href="{{ protocol }}://{{ domain }}{% url 'account_confirm_email' key=key %}" class="button">Confirm Email</a>
+      </p>
+    </div>
+    <div class="footer">
+      <p>Regards,<br>Your Site Team</p>
+    </div>
+  </div>
+{% endblock %}

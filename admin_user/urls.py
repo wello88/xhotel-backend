@@ -12,9 +12,8 @@ urlpatterns = [
     path('programs/<int:program_id>/', get_program_by_id, name='get_program_by_id'),
     path('programs/', ProgramsListCreateView.as_view(), name='programs-list-create'),
     path('editprograms/<int:pk>/', ProgramsDetailView.as_view(), name='programs-detail'),
-        path('get_all_programs/', get_all_programs, name='allprograms-detail'),
+    path('get_all_programs/', get_all_programs, name='allprograms-detail'),
 
     path('admin_login/', LoginView.as_view(), name='login'),
     path('token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
-    # Add other paths as needed
 ]

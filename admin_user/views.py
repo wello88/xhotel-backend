@@ -6,21 +6,17 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from bookings.models import Hotel, Room
 from .serializers import HotelSerializer, RoomSerializer, RoomUpdateDeleteSerializer,HotelUpdateDeleteSerializer
 from .permissions import IsSuperuserOrReadOnly
-
 class HotelListCreateView(generics.ListCreateAPIView):
     queryset = Hotel.objects.all()
     serializer_class = HotelSerializer
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [permissions.IsAuthenticated, IsSuperuserOrReadOnly]
+    # permission_classes = [IsSuperuserOrReadOnly]  
 
 class HotelDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Hotel.objects.all()
     serializer_class = HotelSerializer
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [permissions.IsAuthenticated, IsSuperuserOrReadOnly]
+    # permission_classes = [IsSuperuserOrReadOnly]
 
     def get_serializer_class(self):
-        # Use different serializer for update and delete operations
         if self.request.method in ['PUT', 'PATCH', 'DELETE']:
             return HotelUpdateDeleteSerializer
         return HotelSerializer
@@ -35,14 +31,14 @@ class HotelDetailView(generics.RetrieveUpdateDestroyAPIView):
 class RoomListCreateView(generics.ListCreateAPIView):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [permissions.IsAuthenticated, IsSuperuserOrReadOnly]
+    # authentication_classes = [JWTAuthentication]
+    # permission_classes = [permissions.IsAuthenticated, IsSuperuserOrReadOnly]
 
 class RoomDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [permissions.IsAuthenticated, IsSuperuserOrReadOnly]
+    # authentication_classes = [JWTAuthentication]
+    # permission_classes = [permissions.IsAuthenticated, IsSuperuserOrReadOnly]
 
     def get_serializer_class(self):
         # Use different serializer for update and delete operations
@@ -110,14 +106,14 @@ class IsSuperuserOrReadOnly(permissions.BasePermission):
 class ProgramsListCreateView(generics.ListCreateAPIView):
     queryset = Programs.objects.all()
     serializer_class = ProgramsSerializer
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [permissions.IsAuthenticated, IsSuperuserOrReadOnly]
+    # authentication_classes = [JWTAuthentication]
+    # permission_classes = [permissions.IsAuthenticated, IsSuperuserOrReadOnly]
 
 class ProgramsDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Programs.objects.all()
     serializer_class = ProgramsSerializer
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [permissions.IsAuthenticated, IsSuperuserOrReadOnly]
+    # authentication_classes = [JWTAuthentication]
+    # permission_classes = [permissions.IsAuthenticated, IsSuperuserOrReadOnly]
 
     def get_serializer_class(self):
         if self.request.method in ['PUT', 'PATCH', 'DELETE']:
