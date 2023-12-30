@@ -48,23 +48,23 @@
                         // Render the PayPal button into #paypal-button-container
                         paypal.Buttons({
 
+                            style :{
+
+                                color : 'blue',
+                                shape : 'pill',
+                                label : 'pay',
+                                height :  40
+                            },
                             // Set up the transaction
                             createOrder: function (data, actions) {
-                                // Retrieve the total_price from the HTML element or from the backend response
-                                var total_price = parseFloat(document.getElementById('total-price').textContent); // Update 'total-price' with the actual HTML element ID
-                        
                                 return actions.order.create({
                                     purchase_units: [{
                                         amount: {
-                                            value: total_price.toFixed(2)  // Format the value to two decimal places
+                                            value: '{{ total_price }}'
                                         }
                                     }]
                                 });
                             },
-                        
-                            // ... Other PayPal button configuration ...
-                        
-                        }).render('#paypal-button-container'); 
 
                             // Finalize the transaction
                             onApprove: function (data, actions) {

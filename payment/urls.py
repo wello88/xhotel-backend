@@ -1,6 +1,8 @@
+# payments/urls.py
 from django.urls import path
-from . import views
+from .views import make_payment
 
 urlpatterns = [
-    path('payment/', views.index, name='index'),
+    path('make_payment/<int:booking_id>/', make_payment, name='make_payment'),
+    # Add other URLs as needed
 ]

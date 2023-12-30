@@ -1,5 +1,6 @@
 # bookings/models.py
 from django.db import models
+from django.dispatch import receiver
 
 class Hotel(models.Model):
     name = models.CharField(max_length=255,primary_key=True)
@@ -43,8 +44,10 @@ class Room(models.Model):
 
 
     def __str__(self):
-        return f"{self.hotel.name} - Room {self.room_id}"  
-
+        if self.hotel:
+            return f"{self.hotel.name} - Room {self.room_id}"
+        else:
+            return f"Room {self.room_id} (No associated hotel)"
 
 
 
@@ -68,9 +71,3 @@ class HotelBooking(models.Model):
 
     def __str__(self):
         return f"Booking ({self.room.id})"
-
-
-
-
-
-    # user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, to_field='username')  # Use username as the foreign key

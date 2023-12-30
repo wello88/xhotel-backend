@@ -1285,10 +1285,12 @@ class CustomTokenObtainPairView(TokenObtainPairView):
             # User has confirmed their email, provide access and refresh tokens
             refresh_token = self.get_refresh_token(user)
             access_token = str(refresh_token.access_token)
-            # token = Token.objects.create(user)
+            token_key = response.data['access']
+            
             return JsonResponse({
                 'access_token': access_token,
                 'refresh_token': str(refresh_token),
+                'token_key': token_key,  # The actual token key
                 'detail': 'Login successful.'
             }, status=response.status_code)
 
