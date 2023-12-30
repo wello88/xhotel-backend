@@ -756,8 +756,11 @@ from bookings.models import HotelBooking  # تحديث مسار استيراد �
 
 @login_required
 def get_user_booking_info(request):
-    registration_code = request.user.registration.registration_code
-
+    if request.user and request.user.registration:
+        registration_code = request.user.registration.registration_code
+    else:
+    # Handle the case where registration is None
+        return JsonResponse({'error': 'User registration information not found.'}, status=404)
     user = get_object_or_404(CustomUser, registration__registration_code=registration_code)
 
     bookings = HotelBooking.objects.filter(name=user.first_name)

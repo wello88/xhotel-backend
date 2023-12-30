@@ -71,3 +71,20 @@ class HotelBooking(models.Model):
 
     def __str__(self):
         return f"Booking ({self.room.id})"
+
+
+
+
+
+from django.apps import apps
+
+
+
+
+def generate_registration_code():
+    import random
+    import string
+
+    code_length = 6
+    characters = string.ascii_letters + string.digits
+    return ''.join(random.choice(characters) for i in range(code_length))
