@@ -91,6 +91,9 @@ def get_program_by_id(request, program_id):
 
 
 # views.py
+
+# views.py
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -106,12 +109,16 @@ class IsSuperuserOrReadOnly(permissions.BasePermission):
 class ProgramsListCreateView(generics.ListCreateAPIView):
     queryset = Programs.objects.all()
     serializer_class = ProgramsSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = '__all__'
     # authentication_classes = [JWTAuthentication]
     # permission_classes = [permissions.IsAuthenticated, IsSuperuserOrReadOnly]
 
 class ProgramsDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Programs.objects.all()
     serializer_class = ProgramsSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = '__all__'
     # authentication_classes = [JWTAuthentication]
     # permission_classes = [permissions.IsAuthenticated, IsSuperuserOrReadOnly]
 

@@ -174,18 +174,6 @@ AUTHENTICATION_CLASSES = [
     'dj_rest_auth.authentication.AllAuthJWTAuthentication',
 ]
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'defaultdb',
-#         'USER': 'avnadmin',
-#         'PASSWORD': 'AVNS_Nye0_kgCiDGw2QzGi8b',
-#         'HOST': 'pg-x-abdow88988-c44a.a.aivencloud.com',
-#         'PORT': '22471',
-#     }
-# }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -299,8 +287,8 @@ EMAIL_HOST_PASSWORD = 'mnvvnqnmnaelknwz'  # Replace with your email password
 # Allauth settings
 ACCOUNT_EMAIL_VERIFICATION = 'MANDATORY' 
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3
-ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/'
-ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/'
+ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'https://omerbag-9.github.io/x-hotel-front-end/sign-in.html'
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'https://omerbag-9.github.io/x-hotel-front-end/sign-in.html'
 # ACCOUNT_EMAIL_CONFIRMATION_MODEL = 'custom_auth.CustomEmailConfirmation'
 
 # Email confirmation templates

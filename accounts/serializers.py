@@ -1,15 +1,4 @@
 # accounts/serializers.py
-
-from rest_framework import serializers
-from .models import CustomUser
-from rest_framework import serializers
-from .models import CustomUser
-from allauth.account.signals import email_confirmed
-from django.dispatch import receiver
-
-
-# serializers.py
-
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 

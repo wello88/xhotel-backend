@@ -1,6 +1,6 @@
 from django.db import models
 
-# ------------------------Hobbies and Programs for the Customer------------------------------- 
+# ------------------------Programs for the Customer------------------------------- 
 from django.db import models
 
 class Programs(models.Model):
@@ -17,9 +17,9 @@ class Programs(models.Model):
     def save(self, *args, **kwargs):
         if not self.pk:
             self.nights = self.days + 1
-        super().save(*args, **kwargs)  # Call the superclass's save method with *args and **kwargs
+        super().save(*args, **kwargs)  # Call the superclass's save method 
 
-# ------------------------Hobbies and Programs for the Customer-------------------------------
+# ------------------------ Programs for the Customer-------------------------------
         
 
 
