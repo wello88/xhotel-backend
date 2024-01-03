@@ -111,17 +111,13 @@ class ProgramsListCreateView(generics.ListCreateAPIView):
     serializer_class = ProgramsSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = '__all__'
-    # authentication_classes = [JWTAuthentication]
-    # permission_classes = [permissions.IsAuthenticated, IsSuperuserOrReadOnly]
 
 class ProgramsDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Programs.objects.all()
     serializer_class = ProgramsSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = '__all__'
-    # authentication_classes = [JWTAuthentication]
-    # permission_classes = [permissions.IsAuthenticated, IsSuperuserOrReadOnly]
-
+  
     def get_serializer_class(self):
         if self.request.method in ['PUT', 'PATCH', 'DELETE']:
             return ProgramsUpdateDeleteSerializer
