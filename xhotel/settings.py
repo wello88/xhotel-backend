@@ -60,7 +60,6 @@ INSTALLED_APPS = [
     'profiel',
     'dj_rest_auth',
     'admin_user',
-
 ]
 
 
@@ -299,3 +298,13 @@ ACCOUNT_EMAIL_CONFIRMATION_HMAC = True
 # Ensure that SECURE_SSL_REDIRECT is set to False in development
 SECURE_SSL_REDIRECT = False
 
+
+
+# PAYPAL_RECEIVER_EMAIL = 'your_paypal_email@example.com'
+# PAYPAL_TEST = True  # Set to False in production
+
+# # Use sandbox settings for testing
+# if PAYPAL_TEST:
+#     PAYPAL_API_URL = 'https://www.sandbox.paypal.com/cgi-bin/webscr'
+# else:
+#     PAYPAL_API_URL = 'https://www.paypal.com/cgi-bin/webscr'
